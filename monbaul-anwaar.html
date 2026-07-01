@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institute of Monbaul Anwaar — Qur'an, Hifz & Islamic Sciences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0F2A24;
+    --emerald: #114B3F;
+    --emerald-deep: #0A332A;
+    --gold: #C9A24B;
+    --gold-light: #E6C878;
+    --cream: #F7F1E1;
+    --paper: #FBF8EF;
+    --line: rgba(201,162,75,0.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Amiri', serif;
+    font-weight:700;
+    letter-spacing:0.3px;
+  }
+  .arabic{
+    font-family:'Scheherazade New', serif;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  ::selection{background:var(--gold-light);color:var(--emerald-deep);}
+
+  /* ---------- Decorative geometric pattern (signature element) ---------- */
+  .geo-divider{
+    width:100%;
+    height:34px;
+    background-image: radial-gradient(circle at 50% 100%, transparent 14px, var(--paper) 15px);
+    background-size: 34px 34px;
+    background-position: 0 -17px;
+  }
+  .geo-divider.flip{ transform: scaleY(-1); }
+  .geo-divider.on-emerald{ background-image: radial-gradient(circle at 50% 100%, transparent 14px, var(--emerald-deep) 15px); }
+  .geo-divider.on-cream{ background-image: radial-gradient(circle at 50% 100%, transparent 14px, var(--cream) 15px); }
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(10,51,42,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid rgba(201,162,75,0.25);
+    transition: background .3s ease;
+  }
+  .nav-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:var(--cream);
+  }
+  .brand-mark{
+    width:40px;height:40px;
+    border:1.5px solid var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    flex-shrink:0;
+  }
+  .brand-mark::before{
+    content:"";
+    position:absolute;
+    width:24px;height:24px;
+    border:1px solid var(--gold);
+    transform:rotate(45deg);
+  }
+  .brand-mark span{
+    font-family:'Amiri',serif;
+    color:var(--gold-light);
+    font-size:15px;
+    z-index:1;
+  }
+  .brand-text .name{
+    font-family:'Amiri',serif;
+    font-size:17px;
+    color:var(--cream);
+    line-height:1.1;
+  }
+  .brand-text .sub{
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--gold-light);
+  }
+  nav ul{
+    display:flex;
+    gap:34px;
+  }
+  nav a{
+    color:var(--cream);
+    font-size:14.5px;
+    letter-spacing:0.4px;
+    position:relative;
+    padding:4px 0;
+  }
+  nav a::after{
+    content:"";
+    position:absolute;
+    bottom:-2px;left:0;
+    width:0%;height:1px;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--gold);
+    color:var(--emerald-deep)!important;
+    padding:10px 20px;
+    border-radius:2px;
+    font-weight:500;
+    font-size:13.5px!important;
+    letter-spacing:0.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .nav-cta:hover{background:var(--gold-light);}
+  .nav-cta::after{display:none;}
+  .menu-btn{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:4px;
+    z-index:201;
+  }
+  .menu-btn span{
+    width:24px;height:1.5px;background:var(--gold-light);
+    transition:transform .3s ease, opacity .25s ease;
+  }
+  .menu-btn.active span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  .menu-btn.active span:nth-child(2){ opacity:0; }
+  .menu-btn.active span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+  .nav-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    z-index:98;
+  }
+  .nav-overlay.active{ display:block; }
+  .nav-cta-mob{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(201,162,75,0.10), transparent 55%),
+      linear-gradient(160deg, var(--emerald-deep) 0%, var(--emerald) 60%, #14564A 100%);
+    overflow:hidden;
+    padding-top:90px;
+  }
+  .hero::before{
+    /* faint lattice pattern */
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0.07;
+    background-image:
+      linear-gradient(45deg, var(--gold) 1px, transparent 1px),
+      linear-gradient(-45deg, var(--gold) 1px, transparent 1px);
+    background-size: 46px 46px;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:50px;
+    align-items:center;
+    width:100%;
+  }
+  .hero-eyebrow{
+    color:var(--gold-light);
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    opacity:0;
+    animation: riseIn .8s ease forwards .1s;
+  }
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(34px, 5vw, 58px);
+    line-height:1.15;
+    margin-bottom:22px;
+    opacity:0;
+    animation: riseIn .9s ease forwards .25s;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold-light);
+  }
+  .hero p.lede{
+    color:rgba(247,241,225,0.82);
+    font-size:17px;
+    max-width:480px;
+    margin-bottom:34px;
+    opacity:0;
+    animation: riseIn .9s ease forwards .4s;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation: riseIn .9s ease forwards .55s;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 28px;
+    font-size:14.5px;
+    letter-spacing:0.5px;
+    border-radius:2px;
+    font-weight:500;
+    transition: all .25s ease;
+    cursor:pointer;
+    border:1px solid transparent;
+  }
+  .btn-gold{
+    background:var(--gold);
+    color:var(--emerald-deep);
+  }
+  .btn-gold:hover{
+    background:var(--gold-light);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    border-color:rgba(247,241,225,0.4);
+    color:var(--cream);
+  }
+  .btn-ghost:hover{
+    border-color:var(--gold);
+    background:rgba(201,162,75,0.08);
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* hero visual: rotating geometric star motif */
+  .hero-visual{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    animation: riseIn 1.1s ease forwards .5s;
+  }
+  .star-frame{
+    width:min(380px, 90%);
+    aspect-ratio:1/1;
+    position:relative;
+  }
+  .star-frame svg{ width:100%; height:100%; }
+  .star-frame .ring{
+    animation: spin 90s linear infinite;
+    transform-origin:center;
+  }
+  .star-frame .ring2{
+    animation: spin 70s linear infinite reverse;
+    transform-origin:center;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+  .stat-card{
+    position:absolute;
+    bottom:-6px;
+    left:-6px;
+    background:var(--paper);
+    padding:16px 22px;
+    border-left:3px solid var(--gold);
+    box-shadow:0 14px 30px rgba(0,0,0,0.25);
+  }
+  .stat-card .num{
+    font-family:'Amiri',serif;
+    font-size:28px;
+    color:var(--emerald-deep);
+  }
+  .stat-card .lbl{
+    font-size:11.5px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#6b6249;
+  }
+
+  /* ---------- Section generic ---------- */
+  section{ padding:110px 0; position:relative; }
+  .eyebrow{
+    color:var(--gold);
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:30px;height:1px;
+    background:var(--gold);
+  }
+  .section-head{
+    max-width:620px;
+    margin-bottom:60px;
+  }
+  .section-head h2{
+    font-size:clamp(28px, 3.4vw, 40px);
+    color:var(--emerald-deep);
+    line-height:1.2;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:#5c5847;
+    font-size:16px;
+    max-width:540px;
+  }
+
+  /* ---------- About ---------- */
+  .about{ background:var(--paper); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-art{
+    aspect-ratio: 4/5;
+    background: linear-gradient(150deg, var(--emerald) 0%, var(--emerald-deep) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .about-art::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: linear-gradient(45deg, var(--gold) 1px, transparent 1px), linear-gradient(-45deg, var(--gold) 1px, transparent 1px);
+    background-size:40px 40px;
+    opacity:0.12;
+  }
+  .about-art .quote{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px;
+  }
+  .about-art .quote .ar{
+    font-family:'Scheherazade New',serif;
+    font-size:34px;
+    color:var(--gold-light);
+    margin-bottom:18px;
+    line-height:1.8;
+  }
+  .about-art .quote .tr{
+    color:rgba(247,241,225,0.85);
+    font-size:13.5px;
+    font-style:italic;
+    max-width:240px;
+  }
+  .about-copy p{
+    color:#4f4b3c;
+    margin-bottom:18px;
+    font-size:16px;
+  }
+  .about-points{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .about-points li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14.5px;
+    color:var(--emerald-deep);
+  }
+  .about-points li::before{
+    content:"✦";
+    color:var(--gold);
+    flex-shrink:0;
+    margin-top:2px;
+  }
+
+  /* ---------- Curriculum ---------- */
+  .curriculum{ background:var(--cream); }
+  .subject-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .subject-card{
+    background:var(--cream);
+    padding:38px 32px;
+    transition: background .3s ease;
+    position:relative;
+  }
+  .subject-card:hover{
+    background:var(--paper);
+  }
+  .subject-card .ar-word{
+    font-family:'Scheherazade New',serif;
+    font-size:26px;
+    color:var(--gold);
+    margin-bottom:18px;
+    display:block;
+  }
+  .subject-card h3{
+    font-size:19px;
+    color:var(--emerald-deep);
+    margin-bottom:10px;
+  }
+  .subject-card p{
+    font-size:14px;
+    color:#6b6650;
+  }
+
+  /* ---------- Path / process ---------- */
+  .path{ background:var(--paper); }
+  .path-steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    position:relative;
+  }
+  .path-steps::before{
+    content:"";
+    position:absolute;
+    top:26px; left:0; right:0;
+    height:1px;
+    background:var(--line);
+    z-index:0;
+  }
+  .step{
+    position:relative;
+    z-index:1;
+    padding-right:20px;
+  }
+  .step .stage{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Amiri',serif;
+    color:var(--emerald-deep);
+    font-size:18px;
+    margin-bottom:22px;
+  }
+  .step h3{
+    font-size:17px;
+    color:var(--emerald-deep);
+    margin-bottom:8px;
+  }
+  .step p{
+    font-size:13.5px;
+    color:#6b6650;
+  }
+
+  /* ---------- Testimonial / quote band ---------- */
+  .quote-band{
+    background: linear-gradient(160deg, var(--emerald-deep), var(--emerald));
+    padding:90px 0;
+    text-align:center;
+    position:relative;
+  }
+  .quote-band .ar{
+    font-family:'Scheherazade New',serif;
+    font-size:38px;
+    color:var(--gold-light);
+    max-width:760px;
+    margin:0 auto 20px;
+    line-height:2;
+  }
+  .quote-band .tr{
+    color:rgba(247,241,225,0.8);
+    font-size:15px;
+    font-style:italic;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{ background:var(--cream); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+  }
+  .contact-card{
+    background:var(--paper);
+    padding:40px;
+    border:1px solid var(--line);
+  }
+  .contact-card h3{
+    color:var(--emerald-deep);
+    font-size:21px;
+    margin-bottom:16px;
+  }
+  .contact-card p{
+    color:#5c5847;
+    font-size:15px;
+    margin-bottom:26px;
+  }
+  .whatsapp-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:#1F8A52;
+    color:#fff;
+    padding:16px 26px;
+    border-radius:3px;
+    font-size:15px;
+    letter-spacing:0.3px;
+    font-weight:500;
+    transition: all .25s ease;
+  }
+  .whatsapp-btn:hover{
+    background:#19713F;
+    transform:translateY(-2px);
+  }
+  .whatsapp-btn svg{ width:20px; height:20px; flex-shrink:0; }
+  .info-list{ margin-top:30px; }
+  .info-list li{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px;
+    color:var(--emerald-deep);
+  }
+  .info-list li .lbl{
+    color:#8c8362;
+    min-width:90px;
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding-top:2px;
+  }
+
+  /* mini form */
+  .mini-form{ display:flex; flex-direction:column; gap:16px; }
+  .mini-form input, .mini-form textarea{
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:12px 2px;
+    font-family:'Jost',sans-serif;
+    font-size:15px;
+    color:var(--emerald-deep);
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  .mini-form input:focus, .mini-form textarea:focus{
+    border-color:var(--gold);
+  }
+  .mini-form textarea{ resize:vertical; min-height:90px; }
+  .mini-form button{
+    align-self:flex-start;
+    margin-top:8px;
+  }
+  .form-note{
+    font-size:12.5px;
+    color:#8c8362;
+    margin-top:6px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--emerald-deep);
+    color:rgba(247,241,225,0.75);
+    padding:60px 0 30px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:40px;
+    margin-bottom:50px;
+  }
+  footer h4{
+    font-family:'Amiri',serif;
+    color:var(--gold-light);
+    font-size:16px;
+    margin-bottom:18px;
+  }
+  footer ul li{ margin-bottom:10px; font-size:14px; }
+  footer ul li a:hover{ color:var(--gold-light); }
+  .footer-bottom{
+    border-top:1px solid rgba(201,162,75,0.2);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:12.5px;
+    color:rgba(247,241,225,0.5);
+  }
+
+  /* ---------- Floating WhatsApp ---------- */
+  .float-wa{
+    position:fixed;
+    bottom:26px; right:26px;
+    z-index:200;
+    width:60px;height:60px;
+    background:#1F8A52;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.3);
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+  .float-wa svg{ width:28px;height:28px; }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 8px 24px rgba(31,138,82,0.35); }
+    50%{ box-shadow:0 8px 30px rgba(31,138,82,0.65); }
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 920px){
+    nav ul{ display:none; }
+    nav ul.active{
+      display:flex;
+      flex-direction:column;
+      position:fixed;
+      top:0; right:0;
+      width:280px;
+      height:100vh;
+      background:var(--emerald-deep);
+      padding:90px 30px 30px;
+      gap:20px;
+      border-left:1px solid rgba(201,162,75,0.25);
+      z-index:99;
+      overflow-y:auto;
+    }
+    nav ul.active a{ font-size:16px; }
+    .menu-btn{ display:flex; }
+    .nav-cta{ display:none; }
+    .nav-cta-mob{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--gold);
+      color:var(--emerald-deep)!important;
+      padding:12px 18px;
+      border-radius:2px;
+      font-weight:500;
+      font-size:14px!important;
+      margin-top:10px;
+    }
+    .hero-inner{ grid-template-columns:1fr; text-align:center; }
+    .hero-visual{ order:-1; max-width:260px; margin:0 auto 0; }
+    .hero p.lede{ margin-left:auto; margin-right:auto; }
+    .hero-actions{ justify-content:center; }
+    .about-grid{ grid-template-columns:1fr; }
+    .subject-grid{ grid-template-columns:1fr 1fr; }
+    .path-steps{ grid-template-columns:1fr 1fr; gap:40px 20px; }
+    .path-steps::before{ display:none; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 640px){
+    .about-points{ grid-template-columns:1fr; }
+    .stat-card{ position:relative; bottom:auto; left:auto; margin:16px auto 0; max-width:200px; }
+    .star-frame{ width:min(260px, 85%); }
+  }
+  @media (max-width: 560px){
+    .subject-grid{ grid-template-columns:1fr; }
+    section{ padding:70px 0; }
+    .container{ padding:0 20px; }
+    .step{ padding-right:0; }
+    .path-steps{ grid-template-columns:1fr; gap:30px; }
+    .brand-text .name{ font-size:15px; }
+    .brand-text .sub{ font-size:9px; }
+    .nav-wrap{ padding:14px 20px; }
+    .hero h1{ font-size:clamp(26px, 8vw, 34px); }
+    .hero p.lede{ font-size:15px; }
+    .hero-eyebrow{ font-size:11px; }
+    .btn{ padding:13px 22px; font-size:13.5px; }
+    .quote-band .ar{ font-size:28px; }
+    .quote-band .tr{ font-size:13px; }
+    .about-art .quote .ar{ font-size:26px; }
+    .subject-card{ padding:28px 24px; }
+    .contact-card{ padding:28px 24px; }
+    .whatsapp-btn{ width:100%; justify-content:center; }
+    .mini-form button{ align-self:stretch; justify-content:center; }
+    .info-list li{ flex-direction:column; gap:4px; }
+    .info-list li .lbl{ min-width:auto; }
+    .footer-grid{ gap:28px; }
+  }
+  @media (max-width: 400px){
+    .container{ padding:0 16px; }
+    .hero-visual{ max-width:200px; }
+    .star-frame{ width:min(200px, 80%); }
+    .stat-card{ padding:12px 16px; }
+    .stat-card .num{ font-size:22px; }
+    .stat-card .lbl{ font-size:10px; }
+    .btn{ padding:11px 18px; font-size:12.5px; }
+    section{ padding:56px 0; }
+    .hero{ padding-top:70px; }
+    .section-head{ margin-bottom:40px; }
+    .section-head h2{ font-size:clamp(22px, 7vw, 28px); }
+  }
+  @media (min-width: 921px){
+    .nav-cta-mob{ display:none!important; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none!important; transition:none!important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand">
+      <div class="brand-mark"><span>م</span></div>
+      <div class="brand-text">
+        <div class="name">Monbaul Anwaar</div>
+        <div class="sub">Institute</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#curriculum">Curriculum</a></li>
+        <li><a href="#path">Path</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/2349043317201" target="_blank" rel="noopener">
+      Contact Mudeer
+    </a>
+    <a class="nav-cta-mob" href="https://wa.me/2349043317201" target="_blank" rel="noopener">Contact Mudeer</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Qur'an · Hifz · Islamic Sciences</div>
+      <h1>A wellspring of <em>light</em> for those who seek the Book of Allah</h1>
+      <p class="lede">Institute of Monbaul Anwaar trains students in memorisation, recitation, and the classical sciences — Tajweed, Tawheed, Fiqh, Nahw, and Sarf — under qualified teachers, in a disciplined and nurturing setting.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="https://wa.me/2349043317201" target="_blank" rel="noopener">Speak with the Mudeer</a>
+        <a class="btn btn-ghost" href="#curriculum">View Curriculum</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="star-frame">
+        <svg viewBox="0 0 200 200">
+          <g class="ring" stroke="#C9A24B" stroke-width="0.6" fill="none" opacity="0.55">
+            <circle cx="100" cy="100" r="92"/>
+            <polygon points="100,8 130,70 196,78 146,122 160,188 100,154 40,188 54,122 4,78 70,70"/>
+          </g>
+          <g class="ring2" stroke="#E6C878" stroke-width="0.6" fill="none" opacity="0.4">
+            <circle cx="100" cy="100" r="68"/>
+            <polygon points="100,32 116,84 170,84 126,116 142,168 100,136 58,168 74,116 30,84 84,84"/>
+          </g>
+          <circle cx="100" cy="100" r="40" fill="none" stroke="#F7F1E1" stroke-width="0.6" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="stat-card">
+        <div class="num">7</div>
+        <div class="lbl">Core Disciplines Taught</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="geo-divider on-emerald" aria-hidden="true"></div>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-art reveal">
+      <div class="quote">
+        <div class="ar">وَقُرْآنًا فَرَقْنَاهُ لِتَقْرَأَهُ عَلَى النَّاسِ عَلَىٰ مُكْثٍ</div>
+        <div class="tr">"A Qur'an which We have divided, that you might recite it to the people at intervals." — Al-Isra 17:106</div>
+      </div>
+    </div>
+    <div class="about-copy reveal">
+      <div class="eyebrow">About the Institute</div>
+      <h2 style="font-size:clamp(26px,3vw,36px); color:var(--emerald-deep); margin-bottom:20px;">Rooted in tradition, devoted to learning</h2>
+      <p>Monbaul Anwaar — meaning "a source of lights" — is an Islamic institute dedicated to raising students who carry the Qur'an in their hearts and the classical sciences in their minds. Our teachers hold authenticated chains of transmission (isnad) and guide each student with patience and discipline.</p>
+      <p>Beyond memorisation, students are grounded in the tools needed to understand Islam correctly: the rules of recitation, sound creed, jurisprudence, and Arabic grammar — the same curriculum that has formed scholars for centuries.</p>
+      <ul class="about-points">
+        <li>Qualified, ijazah-holding teachers</li>
+        <li>Structured Hifz memorisation track</li>
+        <li>Separate classes by age and level</li>
+        <li>Strong emphasis on character (akhlaq)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="geo-divider flip" aria-hidden="true"></div>
+
+<section class="curriculum" id="curriculum">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Teach</div>
+      <h2>Seven disciplines, one tradition</h2>
+      <p>Each subject builds upon the last, forming a complete and time-tested path of Islamic learning.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="subject-grid reveal">
+      <div class="subject-card">
+        <span class="ar-word">قُرْآن</span>
+        <h3>Qur'an Recitation</h3>
+        <p>Correct, fluent reading of the Qur'an from the first letters through to complete mastery of the text.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">حِفْظ</span>
+        <h3>Hifz (Memorisation)</h3>
+        <p>Structured memorisation of the full Qur'an with daily revision and regular assessment.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">تَجْوِيد</span>
+        <h3>Ahkam at-Tajweed</h3>
+        <p>The precise rules governing pronunciation, articulation points (makharij), and recitation etiquette.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">تَوْحِيد</span>
+        <h3>Tawheed</h3>
+        <p>The foundational study of Islamic creed and the oneness of Allah, drawn from Qur'an and authentic Sunnah.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">فِقْه</span>
+        <h3>Fiqh</h3>
+        <p>Islamic jurisprudence covering worship, transactions, and daily conduct according to classical scholarship.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">نَحْو</span>
+        <h3>Nahw</h3>
+        <p>Arabic syntax and grammar — the structural key to understanding the Qur'an and classical texts directly.</p>
+      </div>
+      <div class="subject-card">
+        <span class="ar-word">صَرْف</span>
+        <h3>Sarf</h3>
+        <p>Arabic morphology, the study of word patterns and roots that underpins fluency in the classical language.</p>
+      </div>
+      <div class="subject-card" style="display:flex; flex-direction:column; justify-content:center; background:var(--emerald-deep);">
+        <h3 style="color:var(--gold-light);">Ready to begin?</h3>
+        <p style="color:rgba(247,241,225,0.75); margin-bottom:18px;">Reach out to the Mudeer directly to discuss enrolment and class timing.</p>
+        <a class="btn btn-gold" style="align-self:flex-start;" href="https://wa.me/2349043317201" target="_blank" rel="noopener">Message on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="path" id="path">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Admission Process</div>
+      <h2>How a student joins us</h2>
+    </div>
+    <div class="path-steps reveal">
+      <div class="step">
+        <div class="stage">i</div>
+        <h3>Inquire</h3>
+        <p>Contact the Mudeer on WhatsApp with your name, age, and current level of Qur'an reading.</p>
+      </div>
+      <div class="step">
+        <div class="stage">ii</div>
+        <h3>Assessment</h3>
+        <p>A short, informal evaluation of recitation ability to place the student at the right level.</p>
+      </div>
+      <div class="step">
+        <div class="stage">iii</div>
+        <h3>Placement</h3>
+        <p>Student is assigned to a class group and teacher matching their pace and goals.</p>
+      </div>
+      <div class="step">
+        <div class="stage">iv</div>
+        <h3>Enrolment</h3>
+        <p>Confirm schedule and begin regular classes, with progress reviewed continually.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="quote-band">
+  <div class="container">
+    <div class="ar reveal">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+    <div class="tr reveal">"The best among you are those who learn the Qur'an and teach it." — Sahih al-Bukhari</div>
+  </div>
+</div>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Get in Touch</div>
+      <h2>Speak with the Mudeer</h2>
+      <p>For enrolment, class schedules, or any questions about the institute, contact us directly.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <h3>Contact via WhatsApp</h3>
+        <p>The fastest way to reach the Mudeer (Director) of Monbaul Anwaar is directly on WhatsApp. Tap below to start a conversation.</p>
+        <a class="whatsapp-btn" href="https://wa.me/2349043317201" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.872-2.04-.972-.273-.099-.473-.149-.673.15-.197.295-.771.971-.944 1.17-.175.2-.349.225-.646.075-.3-.15-1.263-.465-2.405-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.673-1.62-.922-2.206-.24-.584-.487-.51-.673-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475 0 1.455 1.07 2.865 1.219 3.075.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.226 1.365.1949 1.88.1199.574-.0899 1.767-.7199 2.016-1.4205.255-.6996.255-1.2992.18-1.4205-.075-.1304-.27-.2105-.57-.3604zM12.05 22c-1.79 0-3.55-.476-5.09-1.376l-.366-.215-3.78.99 1.01-3.68-.24-.379A9.973 9.973 0 0 1 2 12.05C2 6.504 6.504 2 12.05 2c2.674 0 5.18 1.045 7.066 2.93A9.93 9.93 0 0 1 22 12.05c0 5.546-4.504 9.95-9.95 9.95zm8.41-18.36A11.9 11.9 0 0 0 12.05 0C5.398 0 0 5.398 0 12.05c0 2.123.555 4.2 1.61 6.03L0 24l6.07-1.59a12.04 12.04 0 0 0 5.98 1.59h.005c6.65 0 12.05-5.398 12.05-12.05 0-3.22-1.253-6.247-3.535-8.51-.034-.034-.066-.067-.1-.1z"/></svg>
+          +234 904 331 7201
+        </a>
+        <ul class="info-list">
+          <li><span class="lbl">Director</span> <span>Mudeer, Institute of Monbaul Anwaar</span></li>
+          <li><span class="lbl">Response</span> <span>Within 24 hours, Saturday–Thursday</span></li>
+          <li><span class="lbl">Languages</span> <span>Arabic · English · Hausa</span></li>
+        </ul>
+      </div>
+      <div class="contact-card reveal">
+        <h3>Send an inquiry</h3>
+        <p>Fill in your details and we'll prepare your message to send via WhatsApp.</p>
+        <form class="mini-form" id="inquiryForm">
+          <input type="text" id="fname" placeholder="Full name" required>
+          <input type="text" id="flevel" placeholder="Current Qur'an level (e.g. beginner, juz 5)" required>
+          <textarea id="fmsg" placeholder="Your message (optional)"></textarea>
+          <button type="submit" class="btn btn-gold">Continue on WhatsApp</button>
+          <div class="form-note">This opens WhatsApp with your message pre-filled — nothing is stored on this site.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Monbaul Anwaar</h4>
+        <p style="font-size:14px; max-width:300px; color:rgba(247,241,225,0.6);">An Islamic institute devoted to the Qur'an, Hifz, and the classical sciences — Tajweed, Tawheed, Fiqh, Nahw, and Sarf.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About the Institute</a></li>
+          <li><a href="#curriculum">Curriculum</a></li>
+          <li><a href="#path">Admission Process</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/2349043317201" target="_blank" rel="noopener">WhatsApp the Mudeer</a></li>
+          <li><a href="#contact">Send an Inquiry</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Institute of Monbaul Anwaar. All rights reserved.</span>
+      <span>وَقُلْ رَبِّ زِدْنِي عِلْمًا</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/2349043317201" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.498 14.382c-.301-.15-1.767-.872-2.04-.972-.273-.099-.473-.149-.673.15-.197.295-.771.971-.944 1.17-.175.2-.349.225-.646.075-.3-.15-1.263-.465-2.405-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.673-1.62-.922-2.206-.24-.584-.487-.51-.673-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475 0 1.455 1.07 2.865 1.219 3.075.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.226 1.365.1949 1.88.1199.574-.0899 1.767-.7199 2.016-1.4205.255-.6996.255-1.2992.18-1.4205-.075-.1304-.27-.2105-.57-.3604zM12.05 22c-1.79 0-3.55-.476-5.09-1.376l-.366-.215-3.78.99 1.01-3.68-.24-.379A9.973 9.973 0 0 1 2 12.05C2 6.504 6.504 2 12.05 2c2.674 0 5.18 1.045 7.066 2.93A9.93 9.93 0 0 1 22 12.05c0 5.546-4.504 9.95-9.95 9.95zm8.41-18.36A11.9 11.9 0 0 0 12.05 0C5.398 0 0 5.398 0 12.05c0 2.123.555 4.2 1.61 6.03L0 24l6.07-1.59a12.04 12.04 0 0 0 5.98 1.59h.005c6.65 0 12.05-5.398 12.05-12.05 0-3.22-1.253-6.247-3.535-8.51-.034-.034-.066-.067-.1-.1z"/></svg>
+</a>
+
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navUl = document.querySelector('nav ul');
+  const navOverlay = document.createElement('div');
+  navOverlay.className = 'nav-overlay';
+  document.body.appendChild(navOverlay);
+
+  function toggleMenu(force) {
+    const isOpen = force !== undefined ? force : navUl.classList.toggle('active');
+    if (force !== undefined) {
+      if (force) navUl.classList.add('active');
+      else navUl.classList.remove('active');
+    }
+    menuBtn.classList.toggle('active', navUl.classList.contains('active'));
+    navOverlay.classList.toggle('active', navUl.classList.contains('active'));
+    document.body.style.overflow = navUl.classList.contains('active') ? 'hidden' : '';
+  }
+
+  menuBtn.addEventListener('click', () => toggleMenu());
+  navOverlay.addEventListener('click', () => toggleMenu(false));
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+
+  // Close on link click
+  navUl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Header background intensifies on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.style.background = window.scrollY > 40
+      ? 'rgba(10,51,42,0.98)'
+      : 'rgba(10,51,42,0.92)';
+  });
+
+  // Inquiry form -> WhatsApp deep link
+  const form = document.getElementById('inquiryForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fname').value.trim();
+    const level = document.getElementById('flevel').value.trim();
+    const msg = document.getElementById('fmsg').value.trim();
+    let text = `Assalamu alaikum, my name is ${name}. My current Qur'an level is: ${level}.`;
+    if (msg) text += ` ${msg}`;
+    const url = `https://wa.me/2349043317201?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
